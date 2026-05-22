@@ -1,0 +1,42 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+      - genspark_ai_developer
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Build & Deploy to Cloudflare Pages
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: kainow-one/package-lock.json
+
+      - name: Install dependencies
+        working-directory: kainow-one
+        run: npm ci
+
+      - name: Build Next.js
+        working-directory: kainow-one
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ef4dfafae6fc56ebf84a3b58aa7d8b45
+          command: pages deploy out/ --project-name=kainow-one --commit-dirty=true
+          workingDirectory: kainow-one

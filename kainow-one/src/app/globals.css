@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* ── Box model global ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ── Sem scroll horizontal em NENHUMA tela ── */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+  /* garante que imagens/elementos não vazem a largura */
+  position: relative;
+}
+
+/* ── Imagens e mídia nunca vão além do container ── */
+img,
+video,
+iframe,
+embed,
+object {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Line-clamp utilities ── */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Esconder scrollbar mas manter scroll ── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Transições suaves globais (só em propriedades específicas) ── */
+a,
+button {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
